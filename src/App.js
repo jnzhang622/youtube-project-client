@@ -20,11 +20,12 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    if (prevState.playlists !== this.state.playlists) {
-      let selectedPlaylist = this.state.playlists[this.state.playlistIndex].videos.map(vid => {return vid.url})
+    if (prevState.playlists !== this.state.playlists || prevState.playlistIndex !== this.state.playlistIndex) {
+      // let selectedPlaylist = this.state.playlists[this.state.playlistIndex].videos.map(vid => {return vid.url})
       // console.log(test)
       // let selectedPlaylist = this.state.playlists.find(p => p.name === this.playlistSelect.value).videos.map(vid => { return vid.url })
-      this.setState({ currentPlaylist: selectedPlaylist})}
+      this.setState({ currentPlaylist: 
+        this.state.playlists[this.state.playlistIndex].videos.map(vid => { return vid.url })})}
   }
 
   // handleChange = (e) => {
@@ -41,13 +42,13 @@ class App extends React.Component {
   }
   testingtest =() => {
     this.setState({ playlistIndex: this.state.playlistIndex + 1 })
-    console.log(this.state.playlistIndex)
+    // console.log(this.state.playlistIndex)
   }
 
 
 
   render() {
-    console.log(this.state.playlists.find(p => p.name === this.playlistSelect))
+    console.log("playlist", this.state.playlists)
     return (
       <Router>
         <div>
