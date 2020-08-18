@@ -1,24 +1,31 @@
 import React from "react";
-import ReactPlayer from 'react-player/youtube'
+import MultiPlayerCard from "./MultiPlayerCard";
 
 class MultiPlayer extends React.Component {
   state = {
-    
+    syncPlaying: false,
+  }
+
+  setPlaying = () => {
+    this.setState({syncPlaying: !this.state.syncPlaying})
   }
 
   render() {
-    // console.log(this.props.)
+    // console.log(this.props.playlist)
     return (
-      <div>
-        <h1>MultiPlayer Component</h1>
+      <div >
         <div>
-          {this.props.playlist.map(vidCode => { return(
-            <iframe width="700" height="400"
-              src={`https://www.youtube.com/embed/${vidCode}`}
-
-              frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen></iframe>)})}
-          
+          <button onClick={this.setPlaying}>SyncPlay</button>
+          <br /><br /><br />
+          <div className="multiPlayerCont" >
+          {this.props.playlist.map((video) => { 
+            return (
+              <div item >
+                <MultiPlayerCard video={video} key={video.id} syncPlaying={this.state.syncPlaying} />
+              </div>
+            )
+            })
+            }</div>
         </div>
       </div>
       )

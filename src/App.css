@@ -1,0 +1,112 @@
+/* .titleImg{
+  display: block;
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  filter: grayscale(25%);
+} */
+.navbar {
+  min-height: 20px;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+.formsBar{
+  min-height: 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+.videoForm{
+  display: flex;
+}
+.multiPlayerCont{
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+}
+.multiPlayerCard{
+  padding: 4px;
+}
+
+.ytSearchBar{
+  justify-content: center;
+  display: flex;
+  width:100%;
+}
+.ytCardCont{
+  padding: 20px;
+
+}
+.ytCard{
+  display: inline-block;
+}
+.ytCardVid{
+  float: left
+}
+.ytCardText{
+  width:120%
+}
+
+.selectedItem{
+  background-color: #83c9de
+}
+.selectedItemText{
+  font-weight: bold;
+}
+/* .playlistItem{} */
+
+.playlistPlayerCont{
+  display: inline-block;}
+.playlist{
+  width:50%;
+  height: 650px;
+  overflow: scroll;
+  float: left;
+  padding: 4px;
+}
+.playlistVid{
+  float: right;
+  padding: 4px;
+}
+.chatForm{
+  width:90%
+}
+.chatBox{
+  width:100%;
+  height: 185px;
+  overflow: scroll;
+  padding: 5px;
+}
+.comment_user_name{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: medium;
+  font-weight: bold
+}
+.comment_text{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: large;
+}
+.dashboardPlayer{
+  justify-content: center;
+  display: flex;
+}
+.dashboardCont{
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.dashboardItems{
+  height:500px;
+  width: 30%;
+  overflow: scroll;
+}

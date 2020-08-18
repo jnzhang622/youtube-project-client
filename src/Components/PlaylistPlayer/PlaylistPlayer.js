@@ -1,21 +1,18 @@
 import React from "react";
-import ReactPlayer from 'react-player/youtube'
+import Playlist from "./Playlist";
+import Video from "./Video"
+import Comments from "./Comments"
 
 class PlaylistPlayer extends React.Component {
   state = {
     songIndex: 0,
-    playing: false,
-    currentPlaylist: [],
     url: ""
   }
 
-  handleChange = (e) => {
-    if (e.target.name === "playPause") {
-      this.setState({ playing: !this.state.playing })
-    }
-    else if (e.target.name === "prevVid") {
+  handleChange = (e, video) => {
+    if (e.target.name === "prevVid") {
       if (this.state.songIndex < 1) {
-        this.setState({ songIndex: this.props.playlist.length })
+        this.setState({ songIndex: this.props.playlist.length - 1 })
       }
       else {
         this.setState({ songIndex: this.state.songIndex - 1 })
@@ -29,45 +26,57 @@ class PlaylistPlayer extends React.Component {
         this.setState({ songIndex: this.state.songIndex + 1 })
       }
     }
-  }
-
-  reactPlayer = () => {
-    // debugger
-    // let songUrl = this.props.playlist ? this.props.playlist[this.state.songIndex].url : ""
-    if (this.props.playlist[this.state.songIndex]) {
-    return (<iframe width="700" height="400"
-      src={`https://www.youtube.com/embed/${this.props.playlist[this.state.songIndex]}`}
-
-      frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen></iframe>)
-    } else {
-      return (<h2>Loading</h2>)
+    else if (e.target.name === "setSongIndex"){
+      this.setState({ songIndex: this.props.playlist.indexOf(video)}) 
+      // console.log(this.props.playlist.indexOf(video))
     }
-    // console.log(this.props.playlist[this.state.songIndex])
   }
 
+  sendVidCode = () => {
+    if (this.props.playlist[this.state.songIndex]) {
+      return this.props.playlist[this.state.songIndex].url
+    }
+  }
+
+  nextVidOnEnd = ()=> {
+    if (this.state.songIndex === this.props.playlist.length - 1) {
+      this.setState({ songIndex: 0 })
+    }
+    else {
+      this.setState({ songIndex: this.state.songIndex + 1 })
+    }
+  }
 
   render() {
-    console.log("playlist", this.props.playlist)
-    console.log("index", this.props.playlist[this.state.songIndex])
+    const { currentUser, id, playlist, comments, handleUpdate} = this.props
+    // console.log("playlist", this.props.playlist)
+    // console.log(this.props.id, this.props.name, this.props.playlist, this.props.comments)
     return (
       <div>
-        <h1>PlaylistPlayer Component</h1>
-        <div>
-          {this.reactPlayer()}
-          
+        <div className="playlistPlayerCont">
+          <div className="playlist">
+            <Playlist 
+              currentVidCode={this.sendVidCode()}
+              currentUser={currentUser}
+              playlist={playlist} 
+              setSongIndex={this.handleChange} 
+              handleUpdate={handleUpdate}/>
+          </div>
+          <div className='playlistVid'>
+            <Video 
+              video={this.sendVidCode()} 
+              handleChange={this.handleChange} 
+              nextVidOnEnd={this.nextVidOnEnd}/>
 
-          {/* <ReactPlayer
-            url={this.reactPlayer()}
-            playing={this.state.playing}
-            // onEnd={null}
-            controls={true}
-          /> */}
+            <Comments 
+              currentUser={currentUser}
+              playlistID={id}
+              comments={comments}
+              handleUpdate={handleUpdate}/>
+            </div>
         </div>
-        <button name="prevVid" onClick={this.handleChange}>Prev</button>
-        <button name="playPause" onClick={this.handleChange}>{this.state.playing ? "Pause" : "Play"}</button>
-        <button name="nextVid" onClick={this.handleChange}>Next</button>
       </div>
+      
     );
   }
 }

@@ -1,66 +1,151 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavBar from "./Components/NavBar";
+// import SignUp from "./Components/SignUp";
+// import Login from "./Components/Login";
+import PlaylistForm from "./Components/PlaylistForm";
+import VideoForm from "./Components/VideoForm";
 import DashBoard from "./Components/DashBoard/DashBoard";
 import PlaylistPlayer from "./Components/PlaylistPlayer/PlaylistPlayer";
 import MultiPlayer from "./Components/MultiPlayer/MultiPlayer";
 import YoutubeSearch from "./Components/YoutubeSearch/YoutubeSearch"
+import "./App.css";
 
 class App extends React.Component {
   state = {
+    currentUser: 3,
     playlists: [],
     currentPlaylist: [],
-    playlistIndex: 0
+    currentPlaylistName: "EDM",
+    currentPlaylistID: 1,
+    currentPlaylistComments: []
   }
 
   componentDidMount(){
+    this.fetchPlaylist()
+  }
+
+  fetchPlaylist = () =>{
     fetch("http://localhost:3000/api/v1/playlists")
-    .then(resp => resp.json())
-    .then(data => this.setState({playlists: data}))
+      .then(resp => resp.json())
+      .then(data => this.setState({ playlists: data }))
   }
 
   componentDidUpdate(prevProps, prevState){
-    if (prevState.playlists !== this.state.playlists || prevState.playlistIndex !== this.state.playlistIndex) {
-      // let selectedPlaylist = this.state.playlists[this.state.playlistIndex].videos.map(vid => {return vid.url})
-      // console.log(test)
-      // let selectedPlaylist = this.state.playlists.find(p => p.name === this.playlistSelect.value).videos.map(vid => { return vid.url })
-      this.setState({ currentPlaylist: 
-        this.state.playlists[this.state.playlistIndex].videos.map(vid => { return vid.url })})}
+    if (prevState.playlists !== this.state.playlists || prevState.currentPlaylistName !== this.state.currentPlaylistName) {
+      let newSelectedPlaylist= this.state.playlists.find(playlist => playlist.name === this.state.currentPlaylistName)
+      this.setState({ 
+        currentPlaylist: newSelectedPlaylist.videos, 
+        currentPlaylistName: newSelectedPlaylist.name,
+        currentPlaylistID: newSelectedPlaylist.id,
+        currentPlaylistComments: newSelectedPlaylist.comments})
+      }
+        // this.state.playlists.find[this.state.playlistIndex].videos.map(vid => { return vid.url })})}
   }
 
-  // handleChange = (e) => {
-  //   this.setState({currentPlaylist: this.playlists.findBy(name === e.target.name)})
-  // }
+  handleChange = (e) => {
+    this.setState({ 
+      currentPlaylistName: e.target.options[e.target.selectedIndex].innerText, 
+      currentPlaylistID: e.target.value })
+  }
 
   playlistSelect = () => {
     return (
       <select onChange={this.handleChange} name="playlistSelect">
         {this.state.playlists.map(playlist => 
-          {return <option onChange={this.handleChange} value={playlist.name} >{playlist.name} </option>})}
+          {return <option onChange={this.handleChange} 
+          value={playlist.id} >{playlist.name}</option>})}
       </select>
     )
   }
-  testingtest =() => {
-    this.setState({ playlistIndex: this.state.playlistIndex + 1 })
-    // console.log(this.state.playlistIndex)
+
+  handleNewPlaylist = (newPlaylist) => {
+    this.setState({
+      playlists: [...this.state.playlists, newPlaylist]
+    })
   }
 
+  handleDeletePlaylist = () => {
+    fetch(`http://localhost:3000/api/v1/playlists/${this.state.currentPlaylistID}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+    })
+      .then(res => res.json())
+      .then(() => {
+        let newPlaylists = this.state.playlists.filter((playlist) => {
+          if (playlist.id === this.state.currentPlaylistID){
+            return false
+          } 
+          return true
+        })
+        let lastPlaylist = this.state.playlists[0]
+        this.setState({
+          playlists: lastPlaylist, 
+          currentPlaylistName: lastPlaylist.name,
+          currentPlaylistID: lastPlaylist.id})
+      })
+    }
 
+    handleNewVideo = (newVideo) => {
+      this.setState({currentPlaylist: [...this.state.currentPlaylist, newVideo]})
+    }
+
+    handleUpdate = () =>{
+      this.fetchPlaylist()
+      // let newComment = this.state.currentPlaylistComments.map(comment => comment.filter(
+      //   comment => {if (video.id === videoID) {return false} return true}))
+      //   this.setState({currentPlaylistComments: newComment})
+    }
 
   render() {
-    console.log("playlist", this.state.playlists)
+    // console.log("currentPlaylist", this.state.currentPlaylist)
+    // console.log("playlists", this.state.playlists[this.state.playlists.length-1])
+    const { currentUser, currentPlaylist, currentPlaylistID, currentPlaylistComments, } = this.state
     return (
       <Router>
         <div>
-          <div><button onClick={this.testingtest}>testing</button></div >
-          <NavBar/>
-          {this.playlistSelect()}
+            <NavBar />
+            <div className="formsBar">
+              <PlaylistForm 
+                currentUser={currentUser} 
+                handleNewPlaylist={this.handleNewPlaylist} />
+
+              {this.playlistSelect()}
+
+              <VideoForm 
+                currentUser={currentUser} 
+                currentPlaylistID={this.state.currentPlaylistID} 
+                handleNewVideo={this.handleNewVideo}/>
+            </div>
+            <br/>
+
           <Switch>
-            <Route exact path="/dashboard" ><DashBoard playlists={this.state.playlists} /> </Route>
-            <Route exact path="/youtubesearcher" ><YoutubeSearch /> </Route>
-            <Route exact path="/multiplayer" ><MultiPlayer playlist={this.state.currentPlaylist}/> </Route>
-            <Route exact path="/playlistplayer"> <PlaylistPlayer playlist={this.state.currentPlaylist}/> </Route>
+            {/* <Route exact path="/signup" ><SignUp/> </Route> */}
+            {/* <Route exact path="/login" ><Login/> </Route> */}
+            <Route exact path="/dashboard" ><DashBoard 
+              currentUser={currentUser} 
+              playlists={this.state.playlists} /> </Route>
+            <Route exact path="/youtubesearch" ><YoutubeSearch 
+              currentUser={currentUser}
+              currentPlaylistID={currentPlaylistID}
+              handleNewVideo={this.handleNewVideo} /> </Route>
+            <Route exact path="/multiplayer" ><MultiPlayer 
+              currentUser={currentUser} 
+              playlist={currentPlaylist}/> </Route>
+            <Route exact path="/playlistplayer"> <PlaylistPlayer 
+              currentUser={currentUser} 
+              playlist={currentPlaylist}
+              // name={currentPlaylistName}
+              id={currentPlaylistID}
+              comments={currentPlaylistComments.reverse()} 
+              handleUpdate={this.handleUpdate}/></Route>
           </Switch>
+
+          <br/>
+          <button onClick={this.handleDeletePlaylist}>Delete {this.state.currentPlaylistName} Playlist</button>
         </div>
       </Router>
     );
