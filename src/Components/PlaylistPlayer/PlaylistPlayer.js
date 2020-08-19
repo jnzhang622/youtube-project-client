@@ -75,6 +75,9 @@ class PlaylistPlayer extends React.Component {
               handleUpdate={handleUpdate}/>
             </div>
         </div>
+        <button className="playlistDeleteButton" 
+        onClick={this.props.handleDeletePlaylist}
+        >Delete {this.props.currentPlaylistName} Playlist</button>
       </div>
       
     );

@@ -29,7 +29,7 @@ class YoutubeSearcher extends React.Component {
             <div >
                 <div className="ytSearchBar">
                     <form className="ytSearchBar" onSubmit={this.handleSearch}>
-                    <input placeholder="Search Youtube..." onChange={this.handleChange}/>
+                        <input className="inputFields" placeholder="Search Youtube..." onChange={this.handleChange}/>
                     </form>
                 </div>
                 <br />

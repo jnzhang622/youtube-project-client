@@ -29,8 +29,9 @@ class DashBoard extends React.Component {
               <h3>{playlist.name}</h3>
               <p>Owner: {playlist.user.username}</p>
               {playlist.videos.map(video => {
-                return (<div style={{ padding: '5px' }} >
-                  {video.title} 
+                return (<div className={this.state.playingUrlCode === video.url ? "selectedItem" : "playlistItem"} 
+                  style={{ padding: '5px' }} >
+                  <div className="playlistItemTitle">{video.title} </div>
                   <button value={video.url} onClick={this.setUrlCode}>Play</button>
                   </div>
                  

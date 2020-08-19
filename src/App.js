@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 // import SignUp from "./Components/SignUp";
-// import Login from "./Components/Login";
+import Login from "./Components/Login";
 import PlaylistForm from "./Components/PlaylistForm";
 import VideoForm from "./Components/VideoForm";
 import DashBoard from "./Components/DashBoard/DashBoard";
@@ -13,12 +13,13 @@ import "./App.css";
 
 class App extends React.Component {
   state = {
-    currentUser: 3,
+    currentUser: 1,
     playlists: [],
     currentPlaylist: [],
-    currentPlaylistName: "EDM",
-    currentPlaylistID: 1,
-    currentPlaylistComments: []
+    currentPlaylistName: "Piano Covers",
+    currentPlaylistID: null,
+    currentPlaylistComments: [],
+    selectOption: []
   }
 
   componentDidMount(){
@@ -50,11 +51,18 @@ class App extends React.Component {
   }
 
   playlistSelect = () => {
+    let selectPlaylists = this.state.playlists.filter(playlist => {
+      if (playlist.user.id !== this.state.currentUser) {
+      return false}
+    return true})
+    console.log(selectPlaylists)
+
     return (
       <select onChange={this.handleChange} name="playlistSelect">
-        {this.state.playlists.map(playlist => 
-          {return <option onChange={this.handleChange} 
-          value={playlist.id} >{playlist.name}</option>})}
+        {selectPlaylists.map(playlist => {if (playlist)
+          {return <option value={playlist.id} >{playlist.name}</option>}
+        }
+        )}
       </select>
     )
   }
@@ -83,7 +91,8 @@ class App extends React.Component {
         })
         let lastPlaylist = this.state.playlists[0]
         this.setState({
-          playlists: lastPlaylist, 
+          currentPlaylist: newPlaylists,
+          playlists: newPlaylists, 
           currentPlaylistName: lastPlaylist.name,
           currentPlaylistID: lastPlaylist.id})
       })
@@ -124,7 +133,7 @@ class App extends React.Component {
 
           <Switch>
             {/* <Route exact path="/signup" ><SignUp/> </Route> */}
-            {/* <Route exact path="/login" ><Login/> </Route> */}
+            <Route exact path="/" ><Login/> </Route>
             <Route exact path="/dashboard" ><DashBoard 
               currentUser={currentUser} 
               playlists={this.state.playlists} /> </Route>
@@ -138,15 +147,16 @@ class App extends React.Component {
             <Route exact path="/playlistplayer"> <PlaylistPlayer 
               currentUser={currentUser} 
               playlist={currentPlaylist}
-              // name={currentPlaylistName}
+              currentPlaylistName={this.state.currentPlaylistName}
               id={currentPlaylistID}
               comments={currentPlaylistComments.reverse()} 
+              handleDeletePlaylist={this.handleDeletePlaylist}
               handleUpdate={this.handleUpdate}/></Route>
           </Switch>
 
           <br/>
-          <button onClick={this.handleDeletePlaylist}>Delete {this.state.currentPlaylistName} Playlist</button>
         </div>
+        
       </Router>
     );
   }

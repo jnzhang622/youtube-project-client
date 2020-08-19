@@ -34,14 +34,14 @@ class Comments extends React.Component{
         // console.log("userID", this.props.currentUser)
         // console.log("text", this.state.text)
         return (
-            <div >
+            <div className="chatBox">
                 <form onSubmit={this.handleSubmit}>
-                    <textarea className="chatForm" name="newPlaylist"
+                    <input className="chatForm" name="newPlaylist" autoComplete="off"
                         onChange={this.handleChange}
                         value={this.state.text} />
-                    <button type="submit">Post</button>
+                    <button className="" type="submit">Post</button>
                 </form>
-                <div className="chatBox">
+                <div >
                     {this.state.newComments.reverse().map(comment => {
                         return (
                             <div>

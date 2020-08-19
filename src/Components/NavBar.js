@@ -39,17 +39,17 @@ const NavBar = (props) => {
           <img src={logo} alt="Logo" />
         </div>
           <div className="navbar">
-            <Link className="Link" to="/dashboard">
-              DashBoard
+            <Link className="link" to="/dashboard">
+            <strong>DashBoard</strong>
             </Link>
-            <Link className="Link" to="/playlistplayer">
-              My Playlist
+            <Link className="link" to="/playlistplayer">
+              <strong>My Playlist</strong>
             </Link>
-            <Link className="Link" to="/multiplayer">
-              MultiPlayer
+            <Link className="link" to="/multiplayer">
+            <strong>MultiPlayer</strong>
             </Link>
-            <Link className="Link" to="/youtubesearch">
-              Youtube Search
+            <Link className="link" to="/youtubesearch">
+            <strong>Youtube Search</strong>
             </Link>
           </div>
         </div>

@@ -23,18 +23,19 @@ class PlaylistForm extends React.Component {
             })
         })
         .then(resp => resp.json())
-        .then(data=>{this.props.handleNewPlaylist(data)})
+        .then(data=>{this.props.handleNewPlaylist(data)}, this.setState({name: ""}))
     }
 
     render() {
-        console.log(this.state.name)
+        // console.log(this.state.name)
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>New Playlist: <input name="newPlaylist" 
+            <form className="playlistForm" onSubmit={this.handleSubmit}>
+                <label>New Playlist <input className="inputFields" name="newPlaylist" 
                     onChange={this.handleChange} 
                     value={this.state.name}/></label>
-                
-                <button type="submit">Create Playlist</button>
+                {
+                    (this.state.name=="") ? null: <button type="submit">Create Playlist</button>
+                }
             </form>
             );
         }

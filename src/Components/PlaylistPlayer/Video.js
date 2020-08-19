@@ -35,6 +35,7 @@ class Video extends React.Component {
                     <button name="playPause" onClick={this.togglePlay}>{this.state.playing ? "Pause" : "Play"}</button>
                     <button name="nextVid" onClick={this.props.handleChange}>Next</button>
                 </div>
+                <br />
             </div>
             )
         }

@@ -32,22 +32,25 @@ class Playlist extends React.Component {
                 // background-color={this.props.video.url === this.props.currentVidCode ? {root:classes.root} : null}
                 >
                 {/* {Array.isArray(this.state.song.items) ? this.state.song.items[0].snippet.title : null} */}
-                <a className="selectedItemText">{this.props.video.title}</a>
-                
-                <button 
-                    name="setSongIndex" 
-                    value={this.props.video} 
-                    onClick={(e) => this.props.setSongIndex(e, this.props.video)}
-                    variant="outlined"
-                    size="small"
-                    >Play
-                </button>
-                <button 
-                    onClick={this.handleDelete}
-                    variant="outlined"
-                    size="small"
-                    >Remove
-                </button>
+                <div className="playlistItemTitle">
+                    <a >{this.props.video.title}</a>
+                </div>
+                <div className="playlistItemButtons">
+                    <button className="playlistPlayButton"
+                        name="setSongIndex" 
+                        value={this.props.video} 
+                        onClick={(e) => this.props.setSongIndex(e, this.props.video)}
+                        variant="outlined"
+                        size="small"
+                        >Play
+                    </button>
+                    <button className="playlistRemoveButton"
+                        onClick={this.handleDelete}
+                        variant="outlined"
+                        size="small"
+                        >Remove
+                    </button>
+                </div>
             </div>
     );
     }

@@ -73,9 +73,10 @@ class VideoForm extends React.Component {
                 {this.state.form 
                 ? <form onSubmit={this.runApiFetch}>
                     <label>New Video: 
-                        <input name="newVideo" onChange={this.handleChange} value={this.state.ytCode} />
+                        <input className="inputFields" name="newVideo" onChange={this.handleChange} value={this.state.ytCode} />
                     </label>
-                    <button type="submit">Search</button>
+                    {(this.state.ytCode == "") ? null : <button type="submit">Search</button>}
+                    
                 </form>
                 : 
                 <div className="videoForm">
