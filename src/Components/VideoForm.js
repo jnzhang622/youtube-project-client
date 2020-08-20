@@ -75,7 +75,7 @@ class VideoForm extends React.Component {
                     <label>New Video: 
                         <input className="inputFields" name="newVideo" onChange={this.handleChange} value={this.state.ytCode} />
                     </label>
-                    {(this.state.ytCode == "") ? null : <button type="submit">Search</button>}
+                    {(this.state.ytCode === "") ? null : <button type="submit">Search</button>}
                     
                 </form>
                 : 

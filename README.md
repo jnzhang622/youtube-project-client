@@ -1,3 +1,10 @@
+Thank you for coming to our science fair. My app is uToob Player and you can contact me through:
+Linkedin: www.linkedin.com/in/johnzhang622
+GitHub: www.github.com/jnzhang622/
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

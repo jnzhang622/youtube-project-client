@@ -28,7 +28,7 @@ class MultiPlayerCard extends React.Component {
                 width={450}
                   playing={this.state.syncPlaying ? this.props.syncPlaying : this.state.playing}
                 controls={true} />
-              <button variant="outlined" size="small"
+          <button className="defaultButton" variant="outlined" size="small"
               onClick={this.handleSyncButton}>Sync: {this.state.syncPlaying ? "True" : "False"}</button>
           </div>
 

@@ -39,7 +39,7 @@ class YoutubeCard extends React.Component {
                     <div className="ytCardText">
                         <h3>{title}</h3>
                         <p>{description}</p>
-                            <div><button onClick={this.handleSubmit}>Add to Playlist</button></div>
+                            <div><button className="defaultButton" onClick={this.handleSubmit}>Add to Playlist</button></div>
                     </div>
                 </div>
         }

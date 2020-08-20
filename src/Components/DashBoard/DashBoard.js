@@ -14,7 +14,7 @@ class DashBoard extends React.Component {
   render() {
     return (
       <div>
-        <div className="dashboardPlayer">
+        <div className="defaultPlayer">
           <ReactPlayer
             url={`https://www.youtube.com/embed/${this.state.playingUrlCode}`}
             height={200}
@@ -32,7 +32,7 @@ class DashBoard extends React.Component {
                 return (<div className={this.state.playingUrlCode === video.url ? "selectedItem" : "playlistItem"} 
                   style={{ padding: '5px' }} >
                   <div className="playlistItemTitle">{video.title} </div>
-                  <button value={video.url} onClick={this.setUrlCode}>Play</button>
+                  <button className="defaultButton" value={video.url} onClick={this.setUrlCode}>Play</button>
                   </div>
                  
                  ) })}<br />

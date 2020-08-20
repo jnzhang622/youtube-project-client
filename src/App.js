@@ -58,10 +58,10 @@ class App extends React.Component {
     console.log(selectPlaylists)
 
     return (
-      <select onChange={this.handleChange} name="playlistSelect">
-        {selectPlaylists.map(playlist => {if (playlist)
+      <select className="inputFields" onChange={this.handleChange} name="playlistSelect">
+        {selectPlaylists.map(playlist => 
           {return <option value={playlist.id} >{playlist.name}</option>}
-        }
+        
         )}
       </select>
     )

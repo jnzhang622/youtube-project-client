@@ -7,7 +7,8 @@
   filter: grayscale(25%);
 } */
 body{
-  background: rgb(41, 41, 41);
+  background-image: url("./Components/background.jpg");
+  /* background: rgb(54, 54, 54); */
   color: white;
 }
 .navbar {
@@ -39,18 +40,18 @@ body{
   justify-content: space-around;
 }
 .inputFields{
-  background-color: rgb(151, 151, 151);
+  background-color: rgb(196, 195, 195);
 }
 
 
-.playlistItemButtons{
+.playlistItemButtonsCont{
   position: relative;
   float: right;
 }
-/* .playlistPlayButton{
+.playlistButtons{
+  background-color: #68bdd6;
+  color: white;
 }
-.playlistRemoveButton{
-} */
 
 .selectedItem{
   background-color: #83c9de;
@@ -117,11 +118,14 @@ body{
   padding: 20px;
 }
 .multiPlayerCard{
-  padding: 10px;
+  padding: 15px;
   justify-content: center;
 }
 
 .syncButton{
+  justify-content: center;
+  background-color: #68bdd6;
+  color: white;
   justify-content: center;
   display: flex;
   width:100%;
@@ -146,7 +150,7 @@ body{
   width:120%
 }
 
-.dashboardPlayer{
+.defaultPlayer{
   justify-content: center;
   display: flex;
 }
@@ -176,17 +180,21 @@ body{
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-
-.card_button {
+.videoButtonCont{
   justify-content: center;
   display: flex;
-  background-color: #83c9de;
+}
+.video_button {
+  background-color: #68bdd6;
   color: white;
-  border: solid;
   cursor: pointer;
-  opacity: 0.9;
-  width: 150px;
+  width: 30%;
   font-size: 1rem;
+}
+.defaultButton {
+  height: 30px;
+  background-color: #68bdd6;
+  color: white;
 }
 
 .playlistDeleteButton{

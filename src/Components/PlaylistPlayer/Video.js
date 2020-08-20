@@ -30,10 +30,10 @@ class Video extends React.Component {
                 onEnded = {this.props.nextVidOnEnd}
                 controls = {true}/>
 
-                <div>
-                    <button name="prevVid" onClick={this.props.handleChange}>Prev</button>
-                    <button name="playPause" onClick={this.togglePlay}>{this.state.playing ? "Pause" : "Play"}</button>
-                    <button name="nextVid" onClick={this.props.handleChange}>Next</button>
+                <div className="videoButtonCont">
+                    <button className="video_button" name="prevVid" onClick={this.props.handleChange}>Prev</button>
+                    <button className="video_button" name="playPause" onClick={this.togglePlay}>{this.state.playing ? "Pause" : "Play"}</button>
+                    <button className="video_button" name="nextVid" onClick={this.props.handleChange}>Next</button>
                 </div>
                 <br />
             </div>

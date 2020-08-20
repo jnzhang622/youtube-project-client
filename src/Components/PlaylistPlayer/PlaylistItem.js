@@ -35,8 +35,8 @@ class Playlist extends React.Component {
                 <div className="playlistItemTitle">
                     <a >{this.props.video.title}</a>
                 </div>
-                <div className="playlistItemButtons">
-                    <button className="playlistPlayButton"
+                <div className="playlistItemButtonCont">
+                    <button className="playlistButtons"
                         name="setSongIndex" 
                         value={this.props.video} 
                         onClick={(e) => this.props.setSongIndex(e, this.props.video)}
@@ -44,10 +44,8 @@ class Playlist extends React.Component {
                         size="small"
                         >Play
                     </button>
-                    <button className="playlistRemoveButton"
+                    <button className="playlistButtons"
                         onClick={this.handleDelete}
-                        variant="outlined"
-                        size="small"
                         >Remove
                     </button>
                 </div>

@@ -34,7 +34,7 @@ class PlaylistForm extends React.Component {
                     onChange={this.handleChange} 
                     value={this.state.name}/></label>
                 {
-                    (this.state.name=="") ? null: <button type="submit">Create Playlist</button>
+                    (this.state.name==="") ? null: <button type="submit">Create Playlist</button>
                 }
             </form>
             );
